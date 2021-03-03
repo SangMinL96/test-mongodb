@@ -28,32 +28,37 @@ app.get("/user", (req, res) => {
   //post로 넘어온 데이터를 받아서 DB에 저장해준다
 
   const userInfo = new User({
-    id: 3,
-    name: "이상민1",
-    content: "테스트2",
+    id: 4,
+    name: "이상민",
+    content: "변경전",
   });
   userInfo.save((err, userInfo) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({ success: true, userInfo });
   });
 });
-app.get("/find", (req, res) => {
+app.get("/find", async(req, res) => {
+  try{
+    const result =await User.find().sort("-id")
+    res.status(200).json({ success: true, result });
+  }catch(err){
+
+  }
   //회원가입을 할때 필요한것
   //post로 넘어온 데이터를 받아서 DB에 저장해준다
-  User.find((err, userInfo) => {
-    if (err) return res.json({ success: false, err });
-    return res.status(200).json({ success: true, userInfo });
-  });
+  
 });
 app.get("/userfind", async (req, res) => {
   //회원가입을 할때 필요한것
   //post로 넘어온 데이터를 받아서 DB에 저장해준다
   try {
-    await User.findOneAndUpdate({ id: 3 },{name:"이상민 변경"},{new:false}, (err, userInfo) => {
-      if (err) return res.json({ success: false, err });
-      return res.status(200).json({ success: true, userInfo });
-    });
-  } catch (err) {}
+    const result=  await User.findOneAndUpdate({ id: 3 },{name:"sssss",content:"변경후"},{new:false})
+    // console.log(result)
+    return res.status(200).json({ success: true, result });
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ success: false, err });
+  }
 });
 
 app.listen(port, () => console.log(`http://localhost:${port}`));
