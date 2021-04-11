@@ -46,8 +46,8 @@ app.get("/find", async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.status(200).json({ success: true, result });
   } catch (err) {}
-  //회원가입을 할때 필요한것
-  //post로 넘어온 데이터를 받아서 DB에 저장해준다
+  //회원가입을 할때 필요한것fsdㄴㅇ
+  //sdafaspost로 넘어온 데이터를 받아서 DB에 저장해준다
 });
 app.post("/user/edit", async (req, res) => {
   const {_id,name,age,address,hp,content} = req.body;
